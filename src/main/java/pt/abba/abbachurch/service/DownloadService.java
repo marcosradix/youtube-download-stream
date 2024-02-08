@@ -4,14 +4,15 @@ import io.github.gaeqs.javayoutubedownloader.JavaYoutubeDownloader;
 import io.github.gaeqs.javayoutubedownloader.decoder.MultipleDecoderMethod;
 import io.github.gaeqs.javayoutubedownloader.stream.StreamOption;
 import io.github.gaeqs.javayoutubedownloader.stream.YoutubeVideo;
-import io.github.gaeqs.javayoutubedownloader.stream.download.DownloadStatus;
 import io.github.gaeqs.javayoutubedownloader.stream.download.StreamDownloader;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.Comparator;
 
 @Service
+@Slf4j
 public class DownloadService {
 
     public void download(String url) {
@@ -26,14 +27,12 @@ public class DownloadService {
             if (option == null) {
                 return;
             }
-            System.out.println(option.getType());
+            log.info(option.getType().toString());
             var userFolder = System.getProperty("user.home");
             var userFolderFile = new File(userFolder.concat("/musics"));
             boolean mkdir = userFolderFile.mkdir();
-            System.out.printf("create dir: %s", mkdir);
-            System.out.println();
-            System.out.printf("userFolder: %s", userFolder);
-            System.out.println();
+            log.info("create dir: {}", mkdir);
+            log.info("userFolder: {}", userFolder);
             File file = new File(userFolderFile, video.getTitle() + "." + option.getType().getContainer().toString().toLowerCase());
             StreamDownloader downloader = new StreamDownloader(option, file, new DownloadNotifier());
             thread = new Thread(downloader);

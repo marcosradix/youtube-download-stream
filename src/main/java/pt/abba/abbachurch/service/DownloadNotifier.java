@@ -3,25 +3,27 @@ package pt.abba.abbachurch.service;
 import io.github.gaeqs.javayoutubedownloader.stream.download.DownloadStatus;
 import io.github.gaeqs.javayoutubedownloader.stream.download.StreamDownloader;
 import io.github.gaeqs.javayoutubedownloader.stream.download.StreamDownloaderNotifier;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class DownloadNotifier implements StreamDownloaderNotifier {
     @Override
     public void onStart(StreamDownloader streamDownloader) {
-        System.out.println(DownloadStatus.READY);
+        log.info(DownloadStatus.READY.name());
     }
 
     @Override
     public void onDownload(StreamDownloader streamDownloader) {
-        System.out.println(DownloadStatus.DOWNLOADING);
+        log.info(DownloadStatus.DOWNLOADING.name());
     }
 
     @Override
     public void onFinish(StreamDownloader streamDownloader) {
-        System.out.println(DownloadStatus.DONE);
+        log.info(DownloadStatus.DONE.name());
     }
 
     @Override
     public void onError(StreamDownloader streamDownloader, Exception e) {
-        System.out.println("download error");
+        log.info("download error");
     }
 }
