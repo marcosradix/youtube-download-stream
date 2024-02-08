@@ -36,8 +36,6 @@ public class DownloadService {
             System.out.println();
             File file = new File(userFolderFile, video.getTitle() + "." + option.getType().getContainer().toString().toLowerCase());
             StreamDownloader downloader = new StreamDownloader(option, file, new DownloadNotifier());
-            DownloadStatus status = downloader.getStatus();
-            System.out.println(status);
             thread = new Thread(downloader);
             thread.start();
         }catch (Exception e) {
