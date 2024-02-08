@@ -22,7 +22,7 @@ public class DownloadService {
             YoutubeVideo video = JavaYoutubeDownloader.decodeOrNull(url, MultipleDecoderMethod.OR, "html", "embedded");
             StreamOption option = video.getStreamOptions().stream()
                     .filter(target -> target.getType().hasVideo() && target.getType().hasAudio())
-                    .min(Comparator.comparingInt(o -> o.getType().getAudioEncoding().ordinal())).orElse(null);
+                    .min(Comparator.comparingInt(o -> o.getType().getVideoQuality().ordinal())).orElse(null);
             if (option == null) {
                 return;
             }
